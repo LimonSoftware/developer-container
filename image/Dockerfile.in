@@ -1,0 +1,18 @@
+ARG DOCKER_OS_IMAGE=
+ARG DOCKER_OS_TAG=
+FROM ${DOCKER_OS_IMAGE}:${DOCKER_OS_TAG}
+ARG USER_UID=
+ARG USER_GID=
+ENV BUILDER_DIR=/image-build
+ENV SERVICES_DIR=${BUILDER_DIR}/services
+RUN mkdir -p ${BUILDER_DIR}
+COPY *.sh ${BUILDER_DIR}
+RUN mkdir -p ${SERVICES_DIR}
+COPY services/*.sh ${SERVICES_DIR}
+RUN cd ${BUILDER_DIR} && \
+    ./install.sh && \
+    sed -i "s/__USER_UID__/${USER_UID}/g" env-build.sh && \
+    sed -i "s/__USER_GID__/${USER_GID}/g" env-build.sh && \
+    ./setup.sh && \
+    rm -rf ${BUILDER_DIR}
+ENTRYPOINT "__INIT_SCRIPT__"
