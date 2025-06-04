@@ -41,3 +41,23 @@ An enviroment variable DEVEL\_CONTAINER\_PRIVILEDGED (by default disabled), is a
 ```
 $ ./run.sh test
 ```
+## Flavours
+
+This set of scripts supports customizations at level of build and run scripts.
+
+Its needs to implement image/flavours/flavour-{build,run}.sh scripts sourced via
+common\_load\_flavour (env-common.sh) and called by env-{build, run}.sh at
+their respective step.
+
+### Build (example using yocto)
+
+```
+$ ./build.sh yocto
+```
+
+### Run
+
+
+```
+$ ./run.sh test yocto
+```
