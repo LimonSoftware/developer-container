@@ -42,12 +42,13 @@ fi
 
 # Allow access to host user HOME and SSH_AUTH
 if [ $DEVEL_CONTAINER_USER_CONTEXT -eq 1 ]; then
-	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP -v $HOME:$HOME"
+	DOCKER_RUN_ARGS_MAP="$(run_docker_args_add "$DOCKER_RUN_ARGS_MAP" "-v $HOME:$HOME")"
 
 	# Add SSH Auth if variable is set
-	[ "${SSH_AUTH_SOCK:-}" ] \
-		&& DOCKER_RUN_ARGS_ENV="$DOCKER_RUN_ARGS_ENV -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK" \
-		&& DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK"
+	if [ "${SSH_AUTH_SOCK:-}" ]; then
+		DOCKER_RUN_ARGS_ENV="$(run_docker_args_add "$DOCKER_RUN_ARGS_ENV" "-e SSH_AUTH_SOCK=$SSH_AUTH_SOCK")"
+		DOCKER_RUN_ARGS_MAP="$(run_docker_args_add "$DOCKER_RUN_ARGS_MAP" "-v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK")"
+	fi
 fi
 
 docker run $DOCKER_ARGS \

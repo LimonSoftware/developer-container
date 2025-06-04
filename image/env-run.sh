@@ -37,10 +37,18 @@ fi
 
 source env-common.sh
 
+# Add argument if not find in the current args
+run_docker_args_add() {
+	args="$1"
+	to_add="$2"
+	echo "$args" | grep -q -e "$to_add" || args="$args $to_add"
+	echo "$args"
+}
+
 DOCKER_RUN_ARGS_ENV=" \
 	-e HOSTNAME=$CONTAINER_NAME \
-	--cap-add=NET_ADMIN \
 "
+DOCKER_RUN_ARGS_ENV="$(run_docker_args_add "$DOCKER_RUN_ARGS_ENV" "--cap-add=NET_ADMIN")"
 
 DOCKER_RUN_ARGS_MAP=" \
 	-v $HOST_DEVICE_TUN:$DEVICE_TUN \
