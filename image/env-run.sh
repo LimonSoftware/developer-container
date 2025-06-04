@@ -39,6 +39,7 @@ source env-common.sh
 
 DOCKER_RUN_ARGS_ENV=" \
 	-e HOSTNAME=$CONTAINER_NAME \
+	--cap-add=NET_ADMIN \
 "
 
 DOCKER_RUN_ARGS_MAP=" \

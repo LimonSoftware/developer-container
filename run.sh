@@ -38,8 +38,6 @@ DOCKER_ARGS=" \
 if [ $DEVEL_CONTAINER_PRIVILEDGED -eq 1 ]; then 
 	DOCKER_ARGS="$DOCKER_ARGS --privileged"
 	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP -v /dev:/dev"
-else
-	DOCKER_ARGS="$DOCKER_ARGS --cap-add=NET_ADMIN"
 fi
 
 # Allow access to host user HOME and SSH_AUTH
