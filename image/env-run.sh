@@ -56,3 +56,6 @@ DOCKER_RUN_ARGS_MAP=" \
 	-v $HOST_WORKSPACE_DIR:$WORKSPACE_DIR \
 	-v $HOST_STORAGE_DIR:$STORAGE_DIR \
 "
+
+# Load flavour customizations at build step
+common_load_flavour run

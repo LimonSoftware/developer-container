@@ -74,3 +74,6 @@ USER_UID="__USER_UID__"
 USER_GID="__USER_GID__"
 USER_GROUPS="docker,sudo,users"
 USER_SHELL="/bin/bash"
+
+# Load flavour customizations at build step
+common_load_flavour build

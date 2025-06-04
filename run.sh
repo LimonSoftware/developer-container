@@ -5,6 +5,7 @@
 # Positional arguments:
 #
 # 1: Container name, required.
+# 2: Flavour load customization of container at env-common.sh.
 #
 # Environment
 # 	DEVEL_CONTAINER_AUTOSTART: Auto start after OS, default 1 (optional).
@@ -23,6 +24,7 @@ if [ -z "${1:-}" ]; then
 	exit 1
 fi
 CONTAINER_NAME="$1"
+DEVEL_CONTAINER_FLAVOUR="${2:-}"
 
 cd image && source env-run.sh
 
