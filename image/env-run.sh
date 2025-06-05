@@ -1,5 +1,5 @@
 #
-# Environment used by run.sh to start devel container
+# Environment used by image-run.sh to start devel container
 #
 # HOST_DEVICE_TUN: Networking tun device, default: '/dev/net/tun' (optional).
 # HOST_DOCKER_SOCK: Docker socket, default: '/var/run/docker.sock' (optional).

@@ -34,5 +34,4 @@ DOCKER_DEVEL_IMAGE="${DOCKER_DEVEL_IMAGE:-$default_image_name}"
 DOCKER_DEVEL_TAG="${DOCKER_DEVEL_TAG:-latest}"
 
 # As common environment within the container (/etc/default/devel-environ)
-# installed at build.sh -> install.sh -> setup.sh.
 source env-devel-environ.sh

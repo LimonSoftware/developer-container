@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# run.sh: Developer container runner wrapper.
+# image-run.sh: Developer container runner wrapper.
 #
 # Positional arguments:
 #
