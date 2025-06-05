@@ -8,4 +8,6 @@
 
 # Container mapped workspace
 WORKSPACE_DIR="/workspace"
+export WORKSPACE_DIR
 STORAGE_DIR="/storage"
+export STORAGE_DIR
