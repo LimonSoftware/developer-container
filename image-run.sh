@@ -53,6 +53,20 @@ if [ $DEVEL_CONTAINER_USER_CONTEXT -eq 1 ]; then
 	fi
 fi
 
+# If container exists rename to old prefix
+# and inform the user.
+if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" ]; then
+	container_rename="devel-old-review"
+
+	echo "Warning: Container $CONTAINER_NAME already exists"
+	echo "Renaming $CONTAINER_NAME to $container_rename"
+	docker stop "$CONTAINER_NAME"
+	docker rename "$CONTAINER_NAME" "$container_rename"
+	docker update --restart=no "$container_rename"
+	echo ""
+fi
+
+echo "Running container $CONTAINER_NAME ..."
 docker run $DOCKER_ARGS \
 	   $DOCKER_RUN_ARGS_ENV \
 	   $DOCKER_RUN_ARGS_MAP \
