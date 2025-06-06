@@ -10,7 +10,7 @@
 #
 # Workspaces has it's own directories based on:
 #
-# HOST_STORAGE_BASE_DIR: The storage base dir to share data,
+# HOST_STORAGE_DIR: The storage dir to enable data share (optional),
 # HOST_WORKSPACE_BASE_DIR: The workspace base dir to create workspaces.
 #
 # User details to create account inside container.
@@ -31,7 +31,7 @@ DEVICE_TUN="$HOST_DEVICE_TUN"
 HOST_DOCKER_SOCK="${HOST_DOCKER_SOCK:-/var/run/docker.sock}"
 DOCKER_SOCK="$HOST_DOCKER_SOCK"
 
-HOST_STORAGE_BASE_DIR="${HOST_STORAGE_BASE_DIR:-__HOST_STORAGE_BASE_DIR__}"
+HOST_STORAGE_DIR="${HOST_STORAGE_DIR:-__HOST_STORAGE_DIR__}"
 HOST_WORKSPACE_BASE_DIR="${HOST_WORKSPACE_BASE_DIR:-__HOST_WORKSPACE_BASE_DIR__}"
 
 ## User setup

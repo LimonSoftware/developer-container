@@ -11,7 +11,7 @@ env_host="env-host.sh"
 if [ "$step" == "build" ]; then
 	cp "$env_host.in" "$env_host"
 	sed -i "s|__HOST_CONTAINER_FLAVOUR__|$HOST_CONTAINER_FLAVOUR|g" "$env_host"
-	sed -i "s|__HOST_STORAGE_BASE_DIR__|$HOST_STORAGE_BASE_DIR|g" "$env_host"
+	sed -i "s|__HOST_STORAGE_DIR__|$HOST_STORAGE_DIR|g" "$env_host"
 	sed -i "s|__HOST_WORKSPACE_BASE_DIR__|$HOST_WORKSPACE_BASE_DIR|g" "$env_host"
 	sed -i "s|__USER_UID__|$USER_UID|g" "$env_host"
 	sed -i "s|__USER_GID__|$USER_GID|g" "$env_host"

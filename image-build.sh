@@ -12,8 +12,8 @@
 HOST_CONTAINER_FLAVOUR="${1:-}"
 export HOST_CONTAINER_FLAVOUR
 
-HOST_STORAGE_BASE_DIR="${HOST_STORAGE_BASE_DIR:-$HOME/storage}"
-export HOST_STORAGE_BASE_DIR
+HOST_STORAGE_DIR="${HOST_STORAGE_DIR:-}"
+export HOST_STORAGE_DIR
 HOST_WORKSPACE_BASE_DIR="${HOST_WORKSPACE_BASE_DIR:-$HOME/workspaces}"
 export HOST_WORKSPACE_BASE_DIR
 USER_UID="$(id -u)"
@@ -23,7 +23,6 @@ export USER_GID
 
 cd image && ./host-setup.sh build
 
-HOST_STORAGE_DIR="${HOST_STORAGE_DIR:-$HOME/storage}"
 source env-build.sh 
 docker build \
 	--build-arg DOCKER_OS_IMAGE="${DOCKER_OS_IMAGE}" \

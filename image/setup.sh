@@ -15,7 +15,7 @@ cat <<EOF > ${INIT_SCRIPT}
 #
 source ${ENVIRON_FILE}
 
-[ ! -L ${STORAGE_DIR} ] && ln -s \$HOST_STORAGE_DIR ${STORAGE_DIR}
+[ "${STORAGE_DIR}" ] && [ ! -L ${STORAGE_DIR} ] && ln -s \$HOST_STORAGE_DIR ${STORAGE_DIR}
 [ ! -L ${WORKSPACE_DIR} ] && ln -s \$HOST_WORKSPACE_DIR ${WORKSPACE_DIR}
 EOF
 
