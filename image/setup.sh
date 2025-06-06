@@ -14,6 +14,9 @@ cat <<EOF > $INIT_SCRIPT
 # Setup run of services
 #
 source ${DEFAULT_DEVEL_ENVIRON_FILE}
+
+[ ! -L ${STORAGE_DIR} ] && ln -s \$HOST_STORAGE_DIR ${STORAGE_DIR}
+[ ! -L ${WORKSPACE_DIR} ] && ln -s \$HOST_WORKSPACE_DIR ${WORKSPACE_DIR}
 EOF
 
 cd services
@@ -37,7 +40,7 @@ chmod +x ${INIT_SCRIPT}
 # Setup user
 groupadd -g $USER_GID \
 	$USER_GROUP
-useradd -d $WORKSPACE_DIR \
+useradd -d $WORKSPACE_DIR -M \
 	-u $USER_UID \
 	-g $USER_GID \
 	-G $USER_GROUPS \
