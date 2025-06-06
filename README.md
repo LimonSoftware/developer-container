@@ -16,7 +16,7 @@ The containers provides,
 ## Build container devel image
 
 The image by default is based on debian stable, this can be easily customizable,
-look at image-build.sh, env-build.sh and Dockerfile.in (inside image directory).
+look at dc-build.sh, env-build.sh and Dockerfile.in (inside image directory).
 
 ### Build
 
@@ -24,7 +24,7 @@ The docker output image/tag is set in env-build.sh, and can be overrided with
 environment variables DOCKER\_DEVEL\_{IMAGE,TAG}.
 
 ```
-$ ./image-build.sh
+$ ./dc-build.sh
 ```
 
 ### Run
@@ -39,7 +39,7 @@ An enviroment variable DEVEL\_CONTAINER\_PRIVILEDGED (by default disabled), is a
 
 
 ```
-$ ./image-run.sh test
+$ ./dc-run.sh test
 ```
 ## Flavours
 
@@ -52,12 +52,12 @@ their respective step.
 ### Build (example using yocto)
 
 ```
-$ ./image-build.sh yocto
+$ ./dc-build.sh yocto
 ```
 
 ### Run
 
 
 ```
-$ ./image-run.sh test yocto
+$ ./dc-run.sh test yocto
 ```

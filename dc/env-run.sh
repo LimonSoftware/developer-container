@@ -1,5 +1,5 @@
 #
-# Environment used by image-run.sh to start devel container
+# Environment used by dc-run.sh to start devel container
 #
 # HOST_STORAGE_DIR: The host storage dir to map (optional).
 # HOST_WORKSPACE_DIR: The host workspace dir to map, if isn't set handled by

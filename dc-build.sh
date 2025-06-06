@@ -21,7 +21,7 @@ export USER_UID
 USER_GID="$(id -g)"
 export USER_GID
 
-cd image && ./host-setup.sh build
+cd dc && ./host-setup.sh build
 
 source env-build.sh 
 docker build \

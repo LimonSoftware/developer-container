@@ -29,8 +29,7 @@ if [ "$step" == "build" ]; then
 	fi
 elif [ "$step" == "run" ]; then
 	if [ ! -f "$env_host" ]; then
-		echo "ERROR: $env_host file doesn't exist."
-		echo "ERROR: Execute ./image-build.sh first."
+		echo "ERROR: Execute dc-build.sh file ($env_host) doesn't exist."
 		exit 1
 	fi
 else

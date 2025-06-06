@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# image-run.sh: Developer container runner wrapper.
+# dc-run.sh: Developer container runner wrapper.
 #
 # Positional arguments:
 #
@@ -28,7 +28,7 @@ CONTAINER_NAME="$1"
 HOST_CONTAINER_FLAVOUR="${2:-}"
 export HOST_CONTAINER_FLAVOUR
 
-cd image && ./host-setup.sh run || exit 1
+cd dc && ./host-setup.sh run || exit 1
 source env-run.sh
 
 # Docker base arguments
