@@ -24,9 +24,12 @@ if [ -z "${1:-}" ]; then
 	exit 1
 fi
 CONTAINER_NAME="$1"
-DEVEL_CONTAINER_FLAVOUR="${2:-}"
 
-cd image && source env-run.sh
+HOST_CONTAINER_FLAVOUR="${2:-}"
+export HOST_CONTAINER_FLAVOUR
+
+cd image && ./host-setup.sh run || exit 1
+source env-run.sh
 
 # Docker base arguments
 DOCKER_ARGS=" \

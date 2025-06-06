@@ -1,0 +1,43 @@
+#
+# Host environment variables
+#
+# HOST_CONTAINER_FLAVOUR: Flavour to build and run container.
+#
+# Devices mapped to support networking and docker access atm.
+#
+# HOST_DEVICE_TUN: Networking tun device, default: '/dev/net/tun' (optional).
+# HOST_DOCKER_SOCK: Docker socket, default: '/var/run/docker.sock' (optional).
+#
+# Workspaces has it's own directories based on:
+#
+# HOST_STORAGE_BASE_DIR: The storage base dir to share data,
+# HOST_WORKSPACE_BASE_DIR: The workspace base dir to create workspaces.
+#
+# User details to create account inside container.
+#
+# USER_NAME
+# USER_GROUP
+# USER_UID
+# USER_GID
+# USER_GROUPS
+# USER_SHELL
+#
+
+HOST_CONTAINER_FLAVOUR="${HOST_CONTAINER_FLAVOUR:-__HOST_CONTAINER_FLAVOUR__}"
+
+HOST_DEVICE_TUN="${HOST_DEVICE_TUN:-/dev/net/tun}"
+DEVICE_TUN="$HOST_DEVICE_TUN"
+
+HOST_DOCKER_SOCK="${HOST_DOCKER_SOCK:-/var/run/docker.sock}"
+DOCKER_SOCK="$HOST_DOCKER_SOCK"
+
+HOST_STORAGE_BASE_DIR="${HOST_STORAGE_BASE_DIR:-__HOST_STORAGE_BASE_DIR__}"
+HOST_WORKSPACE_BASE_DIR="${HOST_WORKSPACE_BASE_DIR:-__HOST_WORKSPACE_BASE_DIR__}"
+
+## User setup
+USER_NAME="devel"
+USER_GROUP="$USER_NAME"
+USER_UID="__USER_UID__"
+USER_GID="__USER_GID__"
+USER_GROUPS="docker,sudo,users"
+USER_SHELL="/bin/bash"

@@ -7,22 +7,6 @@
 # DOCKER_OS_TOOLS_PKGS: Tools to install on image, like docker.
 # DOCKER_OS_TOOLS_CMD: Extra commands to run for get tools packages.
 #
-# Setup Image
-#
-# DEFAULT_DEVEL_ENVIRON_FILE: Environment filename to install at /etc/default.
-# INIT_SCRIPT:  Initialization script of the container to setup services.
-#
-# Setup Image - Users
-#
-# User details to create account inside container.
-#
-# USER_NAME
-# USER_GROUP
-# USER_UID
-# USER_GID
-# USER_GROUPS
-# USER_SHELL
-#
 
 set -eou pipefail
 
@@ -61,19 +45,5 @@ DOCKER_OS_TOOLS_PKGS=" \
 DOCKER_OS_TOOLS_CMD=" \
 	curl -fsSL https://tailscale.com/install.sh | sh \
 "
-# Setup
-
-## Environment and start/init
-DEFAULT_DEVEL_ENVIRON_FILE="/etc/default/devel-environ"
-INIT_SCRIPT="/usr/local/sbin/start_devel_environ.sh"
-
-## User setup
-USER_NAME="devel"
-USER_GROUP="$USER_NAME"
-USER_UID="__USER_UID__"
-USER_GID="__USER_GID__"
-USER_GROUPS="docker,sudo,users"
-USER_SHELL="/bin/bash"
-
 # Load flavour customizations at build step
 common_load_flavour build
