@@ -24,6 +24,19 @@
 #
 
 HOST_CONTAINER_FLAVOUR="${HOST_CONTAINER_FLAVOUR:-__HOST_CONTAINER_FLAVOUR__}"
+env_host_load_flavour() {
+	local type="$1"
+
+	if [ "$HOST_CONTAINER_FLAVOUR" ]; then
+		include_flavour="flavours/$HOST_CONTAINER_FLAVOUR-$type.sh"
+		if [ ! -f "$include_flavour" ]; then
+			echo "ERROR: Flavour ($HOST_CONTAINER_FLAVOUR) not supported"
+			echo "ERROR: Loading flavour file ($include_flavour)"
+			exit 1
+		fi
+		source $include_flavour
+	fi
+}
 
 HOST_DEVICE_TUN="${HOST_DEVICE_TUN:-/dev/net/tun}"
 DEVICE_TUN="$HOST_DEVICE_TUN"
@@ -41,3 +54,6 @@ USER_UID="__USER_UID__"
 USER_GID="__USER_GID__"
 USER_GROUPS="docker,sudo,users"
 USER_SHELL="/bin/bash"
+
+# Flavour support
+env_host_load_flavour host

@@ -42,5 +42,5 @@ if [ "${HOST_STORAGE_DIR}" ]; then
 	DOCKER_RUN_ARGS_MAP="$(run_docker_args_add "$DOCKER_RUN_ARGS_MAP" "-v $HOST_STORAGE_DIR:$HOST_STORAGE_DIR")"
 fi
 
-# Load flavour customizations at build step
-common_load_flavour run
+# Flavour support
+env_host_load_flavour run

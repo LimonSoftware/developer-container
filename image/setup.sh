@@ -37,6 +37,9 @@ EOF
 
 chmod +x ${INIT_SCRIPT}
 
+# Flavour support
+env_host_load_flavour setup
+
 # Setup user
 groupadd -g $USER_GID \
 	$USER_GROUP

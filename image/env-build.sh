@@ -45,5 +45,5 @@ DOCKER_OS_TOOLS_PKGS=" \
 DOCKER_OS_TOOLS_CMD=" \
 	curl -fsSL https://tailscale.com/install.sh | sh \
 "
-# Load flavour customizations at build step
-common_load_flavour build
+# Flavour support
+env_host_load_flavour build

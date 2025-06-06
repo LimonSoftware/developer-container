@@ -17,6 +17,16 @@ if [ "$step" == "build" ]; then
 	sed -i "s|__USER_GID__|$USER_GID|g" "$env_host"
 
 	sed "s|__INIT_SCRIPT__|$INIT_SCRIPT|g" Dockerfile.in > Dockerfile
+
+	if [ "${HOST_CONTAINER_FLAVOUR}" ]; then
+		setup_flavour="flavours/$HOST_CONTAINER_FLAVOUR-host-setup.sh"
+		if [ ! -f "$setup_flavour" ]; then
+			echo "ERROR: Flavour ($HOST_CONTAINER_FLAVOUR) not supported"
+			echo "ERROR: Executing flavour file ($setup_flavour)"
+			exit 1
+		fi
+		$setup_flavour
+	fi
 elif [ "$step" == "run" ]; then
 	if [ ! -f "$env_host" ]; then
 		echo "ERROR: $env_host file doesn't exist."
