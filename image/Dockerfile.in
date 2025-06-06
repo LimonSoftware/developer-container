@@ -15,9 +15,10 @@ COPY services/*.sh ${SERVICES_DIR}
 RUN mkdir -p ${FLAVOURS_DIR}
 COPY flavours/*.sh ${FLAVOURS_DIR}
 RUN cd ${BUILDER_DIR} && \
-    ./install.sh && \
+    ./install.sh
+RUN cd ${BUILDER_DIR} && \
     sed -i "s/__USER_UID__/${USER_UID}/g" env-build.sh && \
     sed -i "s/__USER_GID__/${USER_GID}/g" env-build.sh && \
-    ./setup.sh && \
-    rm -rf ${BUILDER_DIR}
+    ./setup.sh
+RUN rm -rf ${BUILDER_DIR}
 ENTRYPOINT "__INIT_SCRIPT__"
