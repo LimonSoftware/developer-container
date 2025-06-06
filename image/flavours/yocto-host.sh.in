@@ -1,0 +1,21 @@
+#
+# Yocto common host environment.
+#
+# HOST_DEVICE_KVM: The kvm device if find pass to the container.
+# HOST_DEVICE_KVM_GID: The kvm device if find pass to the container.
+# HOST_DEVICE_LOOP: The loop device if find pass to the container.
+#
+
+HOST_DEVICE_KVM="__HOST_DEVICE_KVM__"
+HOST_DEVICE_KVM_GNAME="kvm"
+HOST_DEVICE_KVM_GID="__HOST_DEVICE_KVM_GID__"
+HOST_DEVICE_LOOP="__HOST_DEVICE_LOOP__"
+
+if [ "${HOST_DEVICE_KVM}" ]; then
+	USER_GROUPS="$USER_GROUPS,$HOST_DEVICE_KVM_GNAME"
+fi
+
+if [ "${HOST_DEVICE_LOOP}" ]; then
+	# We asumme disk group already created
+	USER_GROUPS="$USER_GROUPS,disk"
+fi
