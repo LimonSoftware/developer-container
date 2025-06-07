@@ -2,14 +2,8 @@ ARG DOCKER_OS_IMAGE=
 ARG DOCKER_OS_TAG=
 FROM ${DOCKER_OS_IMAGE}:${DOCKER_OS_TAG}
 ARG BUILDER_DIR=/build
-ARG FLAVOURS_DIR=${BUILDER_DIR}/flavours
-ARG SERVICES_DIR=${BUILDER_DIR}/services
 RUN mkdir -p ${BUILDER_DIR}
-COPY *.sh ${BUILDER_DIR}
-RUN mkdir -p ${SERVICES_DIR}
-COPY services/*.sh ${SERVICES_DIR}
-RUN mkdir -p ${FLAVOURS_DIR}
-COPY flavours/*.sh ${FLAVOURS_DIR}
+COPY ./ ${BUILDER_DIR}
 RUN cd ${BUILDER_DIR} && \
     ./install.sh && \
     ./setup.sh

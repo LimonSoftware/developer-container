@@ -18,7 +18,7 @@ if [ ! -c "${HOST_DEVICE_LOOP}" ]; then
 	HOST_DEVICE_LOOP=""
 fi
 
-yocto_host="flavours/yocto-host.sh"
+yocto_host="flavours/yocto/host.sh"
 cp "$yocto_host.in" "$yocto_host"
 sed -i "s|__HOST_DEVICE_KVM__|$HOST_DEVICE_KVM|g" "$yocto_host"
 sed -i "s|__HOST_DEVICE_KVM_GID__|$HOST_DEVICE_KVM_GID|g" "$yocto_host"

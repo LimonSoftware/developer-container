@@ -19,7 +19,7 @@ if [ "$step" == "build" ]; then
 	sed "s|__INIT_SCRIPT__|$INIT_SCRIPT|g" Dockerfile.in > Dockerfile
 
 	if [ "${HOST_CONTAINER_FLAVOUR}" ]; then
-		setup_flavour="flavours/$HOST_CONTAINER_FLAVOUR-host-setup.sh"
+		setup_flavour="flavours/$HOST_CONTAINER_FLAVOUR/host-setup.sh"
 		if [ ! -f "$setup_flavour" ]; then
 			echo "ERROR: Flavour ($HOST_CONTAINER_FLAVOUR) not supported"
 			echo "ERROR: Executing flavour file ($setup_flavour)"
