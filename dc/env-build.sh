@@ -14,6 +14,8 @@ source env-common.sh
 
 # Build
 
+export DEBIAN_FRONTEND=noninteractive
+
 ## Docker OS image customizations
 DOCKER_OS_DEVEL_PKGS=" \
 	bash-completion \
