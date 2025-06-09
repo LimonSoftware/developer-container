@@ -15,9 +15,7 @@ cat <<EOF > ${INIT_SCRIPT}
 #
 source ${ENVIRON_FILE}
 
-[ "${STORAGE_DIR}" ] && [ ! -L ${STORAGE_DIR} ] && ln -s \$HOST_STORAGE_DIR ${STORAGE_DIR}
-[ ! -L ${WORKSPACE_DIR} ] && ln -s \$HOST_WORKSPACE_DIR ${WORKSPACE_DIR}
-
+add_user_storage_workspace "\$WORKSPACE_DIR" "\$HOST_WORKSPACE_DIR" "\$STORAGE_DIR" "\$HOST_STORAGE_DIR"
 add_user_skel "\$WORKSPACE_DIR" "$USER_NAME" "$USER_GROUP"
 EOF
 

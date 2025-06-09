@@ -27,6 +27,23 @@ add_user_skel() {
 	done
 }
 
+# Add symlinks if not exists yet, this enables being able run/map
+# containers volumes inside with same workspace and/or directories.
+add_user_storage_workspace() {
+	local wkspace_dir="$1"
+	local host_wkspace_dir="$2"
+	local storage_dir="$3"
+	local host_storage_dir="$4"
+
+	if [ ! -L $wkspace_dir ]; then
+		ln -s $host_wkspace_dir $wkspace_dir
+	fi
+
+	if [ "$storage_dir" ] && [ ! -L $storage_dir ]; then
+		ln -s $host_storage_dir $storage_dir
+	fi
+}
+
 ENVIRON_FILE="/etc/default/devel-environ"
 INIT_SCRIPT="/usr/local/sbin/start_devel_environ.sh"
 
