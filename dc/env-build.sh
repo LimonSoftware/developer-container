@@ -14,10 +14,6 @@ source env-common.sh
 
 # Build
 
-## Docker OS image tag (base)
-DOCKER_OS_IMAGE="${DOCKER_OS_IMAGE:-debian}"
-DOCKER_OS_TAG="${DOCKER_OS_TAG:-stable}"
-
 ## Docker OS image customizations
 DOCKER_OS_DEVEL_PKGS=" \
 	bash-completion \

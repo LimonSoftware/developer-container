@@ -1,6 +1,11 @@
 #
 # Host environment variables
 #
+# Docker variables
+#
+# DOCKER_OS_IMAGE: Docker base image to customize.
+# DOCKER_OS_TAG: Docker base tag to customize.
+#
 # HOST_CONTAINER_FLAVOUR: Flavour to build and run container.
 #
 # Devices mapped to support networking and docker access atm.
@@ -23,7 +28,11 @@
 # USER_SHELL
 #
 
+# Docker OS image, tag and flavour
+DOCKER_OS_IMAGE="${DOCKER_OS_IMAGE:-debian}"
+DOCKER_OS_TAG="${DOCKER_OS_TAG:-stable}"
 HOST_CONTAINER_FLAVOUR="${HOST_CONTAINER_FLAVOUR:-__HOST_CONTAINER_FLAVOUR__}"
+
 env_host_load_flavour() {
 	local type="$1"
 
@@ -38,6 +47,7 @@ env_host_load_flavour() {
 	fi
 }
 
+# Host devices to share with container
 HOST_DEVICE_TUN="${HOST_DEVICE_TUN:-/dev/net/tun}"
 DEVICE_TUN="$HOST_DEVICE_TUN"
 

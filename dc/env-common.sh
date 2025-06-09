@@ -11,7 +11,7 @@ source env-host.sh
 source env-devel-environ.sh
 
 # Docker image output
-default_image_name="devel"
+default_image_name="$DOCKER_OS_IMAGE-devel"
 [ "${HOST_CONTAINER_FLAVOUR}" ] && default_image_name="$default_image_name-$HOST_CONTAINER_FLAVOUR"
 DOCKER_DEVEL_IMAGE="${DOCKER_DEVEL_IMAGE:-$default_image_name}"
 DOCKER_DEVEL_TAG="${DOCKER_DEVEL_TAG:-latest}"
