@@ -20,23 +20,28 @@ add_user_storage_workspace "\$WORKSPACE_DIR" "\$HOST_WORKSPACE_DIR" "\$STORAGE_D
 add_user_skel "\$WORKSPACE_DIR" "$USER_NAME" "$USER_GROUP"
 
 add_host_user_context "\$WORKSPACE_DIR" "$USER_NAME" "$USER_GROUP" "$HOST_CONTAINER_USER_CONTEXT" "$HOST_USER_HOME"
+
+# Services setup
 EOF
 
 cd services
+
+# Execute tailscaled at end, it blocks any previous
+# service execution.
+last_service="tailscaled.sh"
 for serv in *.sh; do
-  install -m0755 $serv /usr/local/sbin/
-  cat <<EOF >> ${INIT_SCRIPT}
+	install -m0755 $serv /usr/local/sbin/
+
+	if [ "$serv" == "$last_service" ]; then
+		continue
+	fi
+	cat <<EOF >> ${INIT_SCRIPT}
 /usr/local/sbin/${serv}
 EOF
 done
-cd ../
+echo "/usr/local/sbin/$last_service" >> ${INIT_SCRIPT}
 
-cat <<EOF >> ${INIT_SCRIPT}
-# Nothing else only sleep
-while true; do
-	sleep 1
-done
-EOF
+cd ../
 
 chmod +x ${INIT_SCRIPT}
 
