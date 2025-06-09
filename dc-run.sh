@@ -15,12 +15,14 @@
 # Starts docker container using pre-built devel image.
 #
 
+DC_DIR="$(dirname "$(readlink -f "$0")")/dc" && cd "$DC_DIR"
+
 DEVEL_CONTAINER_AUTOSTART=${DEVEL_CONTAINER_AUTOSTART:-1}
 DEVEL_CONTAINER_PRIVILEGED=${DEVEL_CONTAINER_PRIVILEGED:-0}
 DEVEL_CONTAINER_USER_CONTEXT=${DEVEL_CONTAINER_USER_CONTEXT:-1}
 
 if [ -z "${1:-}" ]; then
-	echo "Usage: $0 <workspace_name>"
+	echo "Usage: $(basename $0) <container_name> [flavour]"
 	exit 1
 fi
 CONTAINER_NAME="$1"
@@ -28,7 +30,7 @@ CONTAINER_NAME="$1"
 HOST_CONTAINER_FLAVOUR="${2:-}"
 export HOST_CONTAINER_FLAVOUR
 
-cd dc && ./host-setup.sh run || exit 1
+./host-setup.sh run || exit 1
 
 # Docker base arguments
 DOCKER_RUN_ARGS=" \

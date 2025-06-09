@@ -9,6 +9,8 @@
 # 1: Flavour load customization of container at env-common.sh.
 #
 
+DC_DIR="$(dirname "$(readlink -f "$0")")/dc" && cd "$DC_DIR"
+
 HOST_CONTAINER_FLAVOUR="${1:-}"
 export HOST_CONTAINER_FLAVOUR
 
@@ -21,9 +23,9 @@ export USER_UID
 USER_GID="$(id -g)"
 export USER_GID
 
-cd dc && ./host-setup.sh build
-
+./host-setup.sh build || exit 1
 source env-build.sh 
+
 docker build \
 	--build-arg DOCKER_OS_IMAGE="${DOCKER_OS_IMAGE}" \
 	--build-arg DOCKER_OS_TAG="${DOCKER_OS_TAG}" \
