@@ -64,6 +64,28 @@ An enviroment variable DEVEL\_CONTAINER\_PRIVILEDGED (by default disabled), is a
 ```
 $ dc-run.sh test
 ```
+
+## Execute
+
+A simple wrapper is provided to execute actions inside the container by default spawns
+a shell via `su -l` with provided $USER\_NAME (env-host.sh.in).
+
+Shell example:
+
+
+```
+$ dc-exec.sh test
+```
+
+If more than one argument (container\_name) is provided it calls directly the command in the container using root.
+
+Apt example (root):
+
+
+```
+$ dc-exec.sh test apt-get update
+```
+
 ## Flavours
 
 This set of scripts supports customizations at level of build and run scripts.
