@@ -1,12 +1,12 @@
 #!/bin/bash
 #
-# Build wrapper of docker build
+# Build wrapper of docker build.
 #
-# Environment variables handled by host-setup.sh.
+# Environment handled by host-setup.sh.
 #
 # Positional arguments:
 #
-# 1: Flavour load customization of container at env-common.sh.
+#   1: Flavour load customization of container at env-common.sh.
 #
 
 DC_DIR="$(dirname "$(readlink -f "$0")")/dc" && cd "$DC_DIR"

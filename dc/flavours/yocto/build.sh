@@ -1,7 +1,6 @@
 #
-# Yocto build support for devel containers
+# Yocto build support for devel containers.
 #
-
 # Install Yocto quickstart required packages.
 #
 # https://docs.yoctoproject.org/brief-yoctoprojectqs/index.html#build-host-packages

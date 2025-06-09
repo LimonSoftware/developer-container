@@ -1,15 +1,14 @@
 #
-# Default devel environ file
+# Default devel environ file.
 #
-# ENVIRON_FILE: Environment filename to install at /etc/default (this file).
-# INIT_SCRIPT: nitialization script of the container to setup services.
+#   ENVIRON_FILE: Environment filename to install at /etc/default (this file).
+#   INIT_SCRIPT: nitialization script of the container to setup services.
 #
-# STORAGE_DIR: User sotrage directory inside the container, useful
+#   STORAGE_DIR: User sotrage directory inside the container, useful
 #              to share storage across Host and Container.
-# WORKSPACE_DIR: User $HOME dir inside the container.
+#   WORKSPACE_DIR: User $HOME dir inside the container.
 #
-# WORKSPACE_RUN_DIR: Run directory variable to persist across container
-#                    runs.
+#   WORKSPACE_RUN_DIR: Run directory variable to persist across container runs.
 #
 
 ENVIRON_FILE="/etc/default/devel-environ"

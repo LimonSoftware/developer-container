@@ -1,5 +1,5 @@
 #
-# Yocto run support for devel containers
+# Yocto run support for devel containers.
 #
 
 if [ "$HOST_DEVICE_KVM" ]; then

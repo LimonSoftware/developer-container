@@ -1,10 +1,10 @@
 #
-# Common environment across env-{build,run}.sh
+# Common environment across env-{build,run}.sh.
 #
-# Image Output
+# Docker image output.
 #
-# DOCKER_DEVEL_IMAGE: Output image name
-# DOCKER_DEVEL_TAG: Output image tag
+#   DOCKER_DEVEL_IMAGE: Output image name.
+#   DOCKER_DEVEL_TAG: Output image tag.
 #
 
 source env-host.sh

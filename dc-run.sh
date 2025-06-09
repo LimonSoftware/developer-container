@@ -4,10 +4,11 @@
 #
 # Positional arguments:
 #
-# 1: Container name, required.
-# 2: Flavour load customization of container at env-common.sh.
+#   1: Container name, required.
+#   2: Flavour load customization of container at env-common.sh.
 #
-# Environment
+# Environment:
+#
 # 	DEVEL_CONTAINER_AUTOSTART: Auto start after OS, default 1 (optional).
 # 	DEVEL_CONTAINER_PRIVILEGED: Allow access to the host resources from container, default 0 (optional).
 # 	DEVEL_CONTAINER_USER_CONTEXT: Enable current user context, details below, default 1 (optional).

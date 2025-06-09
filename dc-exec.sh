@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Developer containers execution helper
+# Developer containers execution helper.
 #
 
 DC_DIR="$(dirname "$(readlink -f "$0")")/dc" && cd "$DC_DIR"

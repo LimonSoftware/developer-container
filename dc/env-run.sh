@@ -1,10 +1,10 @@
 #
-# Environment used by dc-run.sh to start devel container
+# Environment used by dc-run.sh to start devel container.
 #
-# HOST_CONTAINER_NOT_PRIVILEGED: Set to know when container is not privileged, default 1 (optional).
-# HOST_STORAGE_DIR: The host storage dir to map (optional).
-# HOST_WORKSPACE_DIR: The host workspace dir to map, if isn't set handled by
-#                   HOST_WORKSPACE_BASE_DIR.
+#   HOST_CONTAINER_NOT_PRIVILEGED: Set to know when container is not privileged, default 1 (optional).
+#   HOST_STORAGE_DIR: The host storage dir to map (optional).
+#   HOST_WORKSPACE_DIR: The host workspace dir to map, if isn't set handled by
+#                       HOST_WORKSPACE_BASE_DIR.
 #
 
 set -eou pipefail

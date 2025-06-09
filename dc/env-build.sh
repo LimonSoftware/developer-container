@@ -1,11 +1,11 @@
 #
-# Environment variables and functions
+# Environment variables and functions.
 #
-# Base Image
+# Docker base image packages to customize.
 #
-# DOCKER_OS_DEVEL_PKGS: Devel components to install on image.
-# DOCKER_OS_TOOLS_PKGS: Tools to install on image, like docker.
-# DOCKER_OS_TOOLS_CMD: Extra commands to run for get tools packages.
+#  DOCKER_OS_DEVEL_PKGS: Devel components to install on image.
+#  DOCKER_OS_TOOLS_PKGS: Tools to install on image, like docker.
+#  DOCKER_OS_TOOLS_CMD: Extra commands to run for get tools packages.
 #
 
 set -eou pipefail

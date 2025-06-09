@@ -1,5 +1,5 @@
 #
-# Yocto host setup support
+# Yocto host setup support.
 #
 
 HOST_DEVICE_KVM="${HOST_DEVICE_KVN:-/dev/kvm}"
