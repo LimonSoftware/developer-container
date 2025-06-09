@@ -13,10 +13,13 @@ cat <<EOF > ${INIT_SCRIPT}
 #
 # Setup run of services
 #
+
 source ${ENVIRON_FILE}
 
 add_user_storage_workspace "\$WORKSPACE_DIR" "\$HOST_WORKSPACE_DIR" "\$STORAGE_DIR" "\$HOST_STORAGE_DIR"
 add_user_skel "\$WORKSPACE_DIR" "$USER_NAME" "$USER_GROUP"
+
+add_host_user_context "\$WORKSPACE_DIR" "$USER_NAME" "$USER_GROUP" "$HOST_CONTAINER_USER_CONTEXT" "$HOST_USER_HOME"
 EOF
 
 cd services

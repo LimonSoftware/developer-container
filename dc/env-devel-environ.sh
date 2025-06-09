@@ -11,6 +11,44 @@
 #   WORKSPACE_RUN_DIR: Run directory variable to persist across container runs.
 #
 
+# Add host user context, now git and ssh config extensions.
+add_host_user_context() {
+	local wkspace_dir="$1"
+	local user_name="$2"
+	local user_group="$3"
+	local host_user_context="$4"
+	local host_user_home="$5"
+
+	if [ "$host_user_context" == "1" ]; then
+		for f in .gitconfig .ssh/config; do
+			dirname="$(dirname $f)"
+			filename="$(basename $f)"
+
+			if [ -f "$host_user_home/$f" ] && [ ! -f "$WORKSPACE_DIR/$f" ]; then
+				mkdir -p "$WORKSPACE_DIR/$dirname"
+				chown $user_name:$user_group $WORKSPACE_DIR/$dirname
+
+				case "$f" in
+				.gitconfig)
+					cat <<EOF >"$wkspace_dir/$f"
+[include]
+    path = $host_user_home/$f
+EOF
+				;;
+				.ssh/config)
+					echo "Include $host_user_home/$f" > "$wkspace_dir/$f"
+				;;
+				*)
+					echo "ERROR: add_user_context not supported file ($f)"
+					exit 1
+				esac
+
+				chown $user_name:$user_group $wkspace_dir/$f
+			fi
+		done
+	fi
+}
+
 # Add /etc/skel/.* files if aren't yet
 add_user_skel() {
 	local wkspace_dir="$1"
