@@ -3,7 +3,7 @@
 # Setup script for run services
 #
 
-source env-build.sh
+source env-common.sh
 
 # Setup services run
 install -m0644 env-devel-environ.sh ${ENVIRON_FILE}
@@ -17,6 +17,8 @@ source ${ENVIRON_FILE}
 
 [ "${STORAGE_DIR}" ] && [ ! -L ${STORAGE_DIR} ] && ln -s \$HOST_STORAGE_DIR ${STORAGE_DIR}
 [ ! -L ${WORKSPACE_DIR} ] && ln -s \$HOST_WORKSPACE_DIR ${WORKSPACE_DIR}
+
+add_user_skel "\$WORKSPACE_DIR" "$USER_NAME" "$USER_GROUP"
 EOF
 
 cd services

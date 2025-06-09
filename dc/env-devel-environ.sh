@@ -11,6 +11,22 @@
 #   WORKSPACE_RUN_DIR: Run directory variable to persist across container runs.
 #
 
+# Add /etc/skel/.* files if aren't yet
+add_user_skel() {
+	local wkspace_dir="$1"
+	local user_name="$2"
+	local user_group="$3"
+
+	for f in /etc/skel/.*; do
+		wf="$wkspace_dir/$(basename $f)"
+
+		if [ ! -f "$wf" ]; then
+			cp "$f" "$wf"
+			chown $user_name:$user_group $wf
+		fi
+	done
+}
+
 ENVIRON_FILE="/etc/default/devel-environ"
 INIT_SCRIPT="/usr/local/sbin/start_devel_environ.sh"
 
