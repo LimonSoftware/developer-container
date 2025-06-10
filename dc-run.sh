@@ -42,6 +42,9 @@ DOCKER_RUN_ARGS=" \
 	--hostname $CONTAINER_NAME \
 	-d \
 "
+DOCKER_RUN_ARGS_ENV=""
+DOCKER_RUN_ARGS_MAP=""
+
 # Autostart by default
 [ $DEVEL_CONTAINER_AUTOSTART -eq 1 ] && DOCKER_RUN_ARGS="$DOCKER_RUN_ARGS --restart unless-stopped"
 
