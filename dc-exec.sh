@@ -37,6 +37,7 @@ user_cmd="su -l $USER_NAME"
 #
 # - {brave-browser, chromium}: Execute in host routing the data-dir and
 # 			       proxy to container.
+# - ssh: Execute user_cmd and append original ssh.
 #
 if [ $# -gt 1 ]; then
 	wkspace_dir="$HOST_WORKSPACE_BASE_DIR/$container"
@@ -48,6 +49,14 @@ if [ $# -gt 1 ]; then
 		$cmd --user-data-dir="$wkspace_dir/.config/$cmd" \
 		   --proxy-server="$(container_get_ip $container):8888" \
 		   2>&1 > /dev/null
+	;;
+	ssh)
+		shift
+		# XXX: By default disable strict host key verification.
+		#      Developer containers are intended to non-production workflow.
+		ssh_opts="-o StrictHostKeyChecking=no"
+		ssh_cmd="$cmd $ssh_opts $@"
+		docker exec -it $container $user_cmd -c "$ssh_cmd"
 	;;
 	*)
 		docker exec -it $container $@
