@@ -11,6 +11,10 @@ env_host="env-host.sh"
 if [ "$step" == "build" ]; then
 	cp "$env_host.in" "$env_host"
 	sed -i "s|__HOST_CONTAINER_FLAVOUR__|$HOST_CONTAINER_FLAVOUR|g" "$env_host"
+
+	host_docker_gid="$(get_group_id docker)"
+	sed -i "s|__HOST_DOCKER_GID__|$host_docker_gid|g" "$env_host"
+
 	sed -i "s|__HOST_STORAGE_DIR__|$HOST_STORAGE_DIR|g" "$env_host"
 	sed -i "s|__HOST_WORKSPACE_BASE_DIR__|$HOST_WORKSPACE_BASE_DIR|g" "$env_host"
 	sed -i "s|__HOST_USER_HOME__|$HOME|g" "$env_host"

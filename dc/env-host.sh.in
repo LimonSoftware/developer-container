@@ -55,6 +55,9 @@ env_host_load_flavour() {
 HOST_STORAGE_DIR="${HOST_STORAGE_DIR:-__HOST_STORAGE_DIR__}"
 HOST_WORKSPACE_BASE_DIR="${HOST_WORKSPACE_BASE_DIR:-__HOST_WORKSPACE_BASE_DIR__}"
 
+# Host docker group id
+HOST_DOCKER_GID="__HOST_DOCKER_GID__"
+
 ## User setup
 
 USER_NAME="devel"

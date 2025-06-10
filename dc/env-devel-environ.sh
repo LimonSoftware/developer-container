@@ -87,6 +87,12 @@ add_user_storage_workspace() {
 	fi
 }
 
+# Get gid based on group name
+get_group_id() {
+	group_name="$1"
+	echo "$(getent group $group_name | awk -F : '{ print $3 }')"
+}
+
 ENVIRON_FILE="/etc/default/devel-environ"
 INIT_SCRIPT="/usr/local/sbin/start_devel_environ.sh"
 

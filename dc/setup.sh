@@ -48,6 +48,14 @@ chmod +x ${INIT_SCRIPT}
 # Flavour support
 env_host_load_flavour setup
 
+# Add host docker group, if is different from host one
+docker_gid="$(get_group_id docker)"
+if [ "$docker_gid" != "$HOST_DOCKER_GID" ]; then
+	group="dockerhost"
+	groupadd -g "$HOST_DOCKER_GID" "$group"
+	USER_GROUPS="$USER_GROUPS,$group"
+fi
+
 # Setup user
 groupadd -g $USER_GID \
 	$USER_GROUP
