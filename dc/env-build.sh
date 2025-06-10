@@ -22,6 +22,7 @@ DOCKER_OS_DEVEL_PKGS=" \
 	build-essential \
 	ca-certificates \
 	curl \
+	gettext \
 	git \
 	git-crypt \
 	git-lfs \
