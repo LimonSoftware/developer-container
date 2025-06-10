@@ -10,6 +10,11 @@
 #
 #   WORKSPACE_RUN_DIR: Run directory variable to persist across container runs.
 #
+# Devices mapped to support networking and docker access.
+#
+#   DEVICE_TUN: Networking tun device, default: '/dev/net/tun' (optional).
+#   DOCKER_SOCK: Docker socket, default: '/var/run/docker.sock' (optional).
+#
 
 # Add host user context, now git and ssh config extensions.
 add_host_user_context() {
@@ -93,3 +98,8 @@ export WORKSPACE_DIR
 
 WORKSPACE_RUN_DIR="$WORKSPACE_DIR/.run"
 export WORKSPACE_RUN_DIR
+
+# Devices to share within container
+
+DEVICE_TUN="${DEVICE_TUN:-/dev/net/tun}"
+DOCKER_SOCK="${DOCKER_SOCK:-/var/run/docker.sock}"

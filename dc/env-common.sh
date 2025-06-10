@@ -7,8 +7,8 @@
 #   DOCKER_DEVEL_TAG: Output image tag.
 #
 
-source env-host.sh
 source env-devel-environ.sh
+source env-host.sh
 
 # Docker image output
 default_image_name="$DOCKER_OS_IMAGE-devel"

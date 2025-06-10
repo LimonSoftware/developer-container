@@ -12,8 +12,8 @@
 #
 # Devices mapped to support networking and docker access.
 #
-#   HOST_DEVICE_TUN: Networking tun device, default: '/dev/net/tun' (optional).
-#   HOST_DOCKER_SOCK: Docker socket, default: '/var/run/docker.sock' (optional).
+#   DEVICE_TUN: Networking tun device, default: '/dev/net/tun' (optional).
+#   DOCKER_SOCK: Docker socket, default: '/var/run/docker.sock' (optional).
 #
 # Workspaces has it's own directories based on:
 #
@@ -51,14 +51,7 @@ env_host_load_flavour() {
 	fi
 }
 
-# Host devices to share with container
-
-HOST_DEVICE_TUN="${HOST_DEVICE_TUN:-/dev/net/tun}"
-DEVICE_TUN="$HOST_DEVICE_TUN"
-
-HOST_DOCKER_SOCK="${HOST_DOCKER_SOCK:-/var/run/docker.sock}"
-DOCKER_SOCK="$HOST_DOCKER_SOCK"
-
+# Host storage and workspace base dirs
 HOST_STORAGE_DIR="${HOST_STORAGE_DIR:-__HOST_STORAGE_DIR__}"
 HOST_WORKSPACE_BASE_DIR="${HOST_WORKSPACE_BASE_DIR:-__HOST_WORKSPACE_BASE_DIR__}"
 

@@ -11,8 +11,8 @@ set -eou pipefail
 
 source env-common.sh
 
-[ ! -S "$HOST_DOCKER_SOCK" ] && echo "ERROR: Docker socket ($HOST_DOCKER_SOCK) not found, please setup docker." && exit 1
-[ ! -c "$HOST_DEVICE_TUN" ] && echo "ERROR: Device ($HOST_DEVICE_TUN) not found, please load tun module." && exit 1
+[ ! -S "$DOCKER_SOCK" ] && echo "ERROR: Docker socket ($DOCKER_SOCK) not found, please setup docker." && exit 1
+[ ! -c "$DEVICE_TUN" ] && echo "ERROR: Device ($DEVICE_TUN) not found, please load tun module." && exit 1
 
 HOST_CONTAINER_NOT_PRIVILEGED=${HOST_CONTAINER_NOT_PRIVILEGED:-1}
 HOST_WORKSPACE_DIR="${HOST_WORKSPACE_DIR:-$HOST_WORKSPACE_BASE_DIR/$CONTAINER_NAME}"
@@ -39,7 +39,7 @@ DOCKER_RUN_ARGS_ENV=" \
 DOCKER_RUN_ARGS_MAP=" \
 	$DOCKER_RUN_ARGS_MAP \
 	-v $HOST_WORKSPACE_DIR:$HOST_WORKSPACE_DIR \
-	-v $HOST_DOCKER_SOCK:$DOCKER_SOCK \
+	-v $DOCKER_SOCK:$DOCKER_SOCK \
 "
 
 if [ "${HOST_STORAGE_DIR}" ]; then
@@ -49,7 +49,7 @@ if [ "${HOST_STORAGE_DIR}" ]; then
 fi
 
 DOCKER_RUN_ARGS_ENV="$(run_docker_args_add "$DOCKER_RUN_ARGS_ENV" "--cap-add=NET_ADMIN" $HOST_CONTAINER_NOT_PRIVILEGED)"
-DOCKER_RUN_ARGS_MAP="$(run_docker_args_add "$DOCKER_RUN_ARGS_MAP" "--device $HOST_DEVICE_TUN:$DEVICE_TUN" $HOST_CONTAINER_NOT_PRIVILEGED)"
+DOCKER_RUN_ARGS_MAP="$(run_docker_args_add "$DOCKER_RUN_ARGS_MAP" "--device $DEVICE_TUN:$DEVICE_TUN" $HOST_CONTAINER_NOT_PRIVILEGED)"
 
 # Flavour support
 env_host_load_flavour run
