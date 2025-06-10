@@ -26,7 +26,18 @@ fi
 
 source env-host.sh
 
-# If as 2nd argument set run command passed
+# When no cmd is specified execute shell via login (su -l) and
+# add SSH_AUTH_SOCK if set.
+user_cmd="su -l $USER_NAME"
+[ "${SSH_AUTH_SOCK:-}" ] && user_cmd="$user_cmd -w SSH_AUTH_SOCK"
+
+# When a cmd is specified execute it.
+#
+# Special cmd handling:
+#
+# - {brave-browser, chromium}: Execute in host routing the data-dir and
+# 			       proxy to container.
+#
 if [ $# -gt 1 ]; then
 	wkspace_dir="$HOST_WORKSPACE_BASE_DIR/$container"
 	shift
@@ -34,7 +45,7 @@ if [ $# -gt 1 ]; then
 	cmd="$1"
 	case "$cmd" in
 	brave-browser|chromium)
-		$1 --user-data-dir="$wkspace_dir/.config/$cmd" \
+		$cmd --user-data-dir="$wkspace_dir/.config/$cmd" \
 		   --proxy-server="$(container_get_ip $container):8888" \
 		   2>&1 > /dev/null
 	;;
@@ -43,5 +54,5 @@ if [ $# -gt 1 ]; then
 	;;
 	esac
 else
-	docker exec -it $container su -l devel -w SSH_AUTH_SOCK
+	docker exec -it $container $user_cmd
 fi
