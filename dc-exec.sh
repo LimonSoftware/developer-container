@@ -57,7 +57,7 @@ if [ $# -gt 1 ]; then
 		# interfer with default proxy session.
 		if [ -n "${2:-}" ]; then
 			proxy_server="$2"
-			user_data="customproxy.$user_data"
+			user_data="$user_data.customproxy"
 		fi
 
 		$cmd --user-data-dir="$user_data" \
