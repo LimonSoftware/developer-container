@@ -93,6 +93,12 @@ get_group_id() {
 	echo "$(getent group $group_name | awk -F : '{ print $3 }')"
 }
 
+# Get name based on gid
+get_group_name() {
+	gid="$1"
+	echo "$(getent group $gid | awk -F : '{ print $1 }')"
+}
+
 ENVIRON_FILE="/etc/default/devel-environ"
 INIT_SCRIPT="/usr/local/sbin/start_devel_environ.sh"
 
