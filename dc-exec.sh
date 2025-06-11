@@ -26,9 +26,12 @@ fi
 
 source env-host.sh
 
+# Docker exec base command
+DOCKER_EXEC="docker exec -e TERM -it"
+
 # When no cmd is specified execute shell via login (su -l) and
 # add SSH_AUTH_SOCK if set.
-user_cmd="su -l $USER_NAME"
+user_cmd="su -l $USER_NAME -w TERM"
 [ "${SSH_AUTH_SOCK:-}" ] && user_cmd="$user_cmd -w SSH_AUTH_SOCK"
 
 # When a cmd is specified execute it.
@@ -56,12 +59,12 @@ if [ $# -gt 1 ]; then
 		#      Developer containers are intended to non-production workflow.
 		ssh_opts="-o StrictHostKeyChecking=no"
 		ssh_cmd="$cmd $ssh_opts $@"
-		docker exec -it $container $user_cmd -c "$ssh_cmd"
+		$DOCKER_EXEC $container $user_cmd -c "$ssh_cmd"
 	;;
 	*)
-		docker exec -it $container $@
+		$DOCKER_EXEC $container $@
 	;;
 	esac
 else
-	docker exec -it $container $user_cmd
+	$DOCKER_EXEC $container $user_cmd
 fi
