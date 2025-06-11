@@ -49,9 +49,20 @@ if [ $# -gt 1 ]; then
 	cmd="$1"
 	case "$cmd" in
 	brave-browser|chromium)
-		$cmd --user-data-dir="$wkspace_dir/.config/$cmd" \
-		   --proxy-server="$(container_get_ip $container):8888" \
-		   2>&1 > /dev/null
+		proxy_server="$(container_get_ip $container):8888"
+		user_data="$wkspace_dir/.config/$cmd"
+
+		# Use proxy server from user cmdline.
+		# Add special proxy userdata folder to avoid
+		# interfer with default proxy session.
+		if [ -n "${2:-}" ]; then
+			proxy_server="$2"
+			user_data="customproxy.$user_data"
+		fi
+
+		$cmd --user-data-dir="$user_data" \
+		     --proxy-server="$proxy_server" 2>&1 > /dev/null
+
 	;;
 	ssh)
 		shift
