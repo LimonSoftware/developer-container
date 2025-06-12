@@ -42,7 +42,8 @@ user_cmd="su -l $USER_NAME -w TERM"
 dc_exec_ssh() {
 	# XXX: By default disable strict host key verification.
 	#      Developer containers are intended to non-production workflow.
-	$DOCKER_EXEC $container $user_cmd -c "ssh -o StrictHostKeyChecking=no $@"
+	ssh_args="$@"
+	$DOCKER_EXEC $container $user_cmd -c "ssh -o StrictHostKeyChecking=no $ssh_args"
 }
 
 # When a cmd is specified execute it.
@@ -84,16 +85,22 @@ if [ $# -gt 1 ]; then
 		shift
 		dc_exec_ssh "$@"
 	;;
-	ssh-acs)
+	ssh-acs|ssh-acs-proxy)
 		shift
 
 		id="${1:-}"
 		[ -z "$id" ] && echo "Usage: $0 ssh-acs <id>" && exit 1
+		shift
+
+		opts=""
+		if [ "$cmd" == "ssh-acs-proxy" ]; then
+			opts="-L *:9999:127.0.0.1:8888"
+		fi
 
 		ip="$(acs_ip_get $id)"
 		user="$(acs_ssh_user $id)"
 
-		dc_exec_ssh "$user@$ip"
+		dc_exec_ssh "$opts $user@$ip $@"
 	;;
 	*)
 		$DOCKER_EXEC $container $@
