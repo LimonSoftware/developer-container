@@ -106,6 +106,10 @@ if [ $# -gt 1 ]; then
 		fi
 
 		ip="$(acs_ip_get $id)"
+		if [ -z "$ip" ]; then
+			echo "ERROR: Cannot get IP of ID ($id)"
+			exit 1
+		fi
 		user="$(acs_ssh_user $id)"
 
 		dc_exec_ssh "$opts $user@$ip $@"

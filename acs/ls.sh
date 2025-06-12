@@ -25,8 +25,9 @@ acs_ip_get_ls() {
 
 	output="$(dc_exec_ssh "$DC_ACS_LS_SERVER_USER@$DC_ACS_LS_SERVER_HOST -- --cmd list --id $id")"
 	ipv4="$(echo "$output" | grep -o -E "IPv4: (.*)" | sed 's/IPv4: //g' | tr -d '\r')"
+	ipv4="$(echo -ne "$ipv4" | tr -d '\r' | tr -d '\n' | tr -d ' ')"
 
-	echo "$ipv4"
+	echo -ne "$ipv4"
 }
 
 acs_ssh_user_ls() {
