@@ -35,7 +35,7 @@ DOCKER_EXEC="docker exec -e TERM -it"
 
 # When no cmd is specified execute shell via login (su -l) and
 # add SSH_AUTH_SOCK if set.
-user_cmd="su -l $USER_NAME -w TERM"
+user_cmd="su -l $USER_NAME -w TERM --pty"
 [ "${SSH_AUTH_SOCK:-}" ] && user_cmd="$user_cmd -w SSH_AUTH_SOCK"
 
 # SSH execution via the container
