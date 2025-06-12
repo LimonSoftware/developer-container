@@ -70,7 +70,6 @@ if [ $# -gt 1 ]; then
 		proxy_server="$container_ip:8888"
 		user_data="$wkspace_dir/.config/$cmd"
 
-		set -x
 		# If command has -proxy suffix
 		if [[ "$cmd" =~ -proxy ]]; then
 			proxy_server="$container_ip:9999"
