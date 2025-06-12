@@ -65,9 +65,18 @@ if [ $# -gt 1 ]; then
 
 	cmd="$1"
 	case "$cmd" in
-	brave-browser|chromium)
-		proxy_server="$(container_get_ip $container):8888"
+	brave-browser|brave-browse-proxy|chromium|chromium-proxy)
+		container_ip="$(container_get_ip $container)"
+		proxy_server="$container_ip:8888"
 		user_data="$wkspace_dir/.config/$cmd"
+
+		set -x
+		# If command has -proxy suffix
+		if [[ "$cmd" =~ -proxy ]]; then
+			proxy_server="$container_ip:9999"
+			user_data="$user_data.proxy"
+			cmd="$(echo $cmd | sed s/-proxy//g)"
+		fi
 
 		# Use proxy server from user cmdline.
 		# Add special proxy userdata folder to avoid
