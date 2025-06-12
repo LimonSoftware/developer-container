@@ -3,7 +3,11 @@
 # Developer containers execution helper.
 #
 
-DC_DIR="$(dirname "$(readlink -f "$0")")/dc" && cd "$DC_DIR"
+DC_BASE_DIR="$(dirname "$(readlink -f "$0")")" && cd "$DC_BASE_DIR"
+
+source acs.sh
+
+DC_DIR="$DC_BASE_DIR/dc" && cd "$DC_DIR"
 
 container_get_ip() {
 	container="$1"
@@ -34,6 +38,13 @@ DOCKER_EXEC="docker exec -e TERM -it"
 user_cmd="su -l $USER_NAME -w TERM"
 [ "${SSH_AUTH_SOCK:-}" ] && user_cmd="$user_cmd -w SSH_AUTH_SOCK"
 
+# SSH execution via the container
+dc_exec_ssh() {
+	# XXX: By default disable strict host key verification.
+	#      Developer containers are intended to non-production workflow.
+	$DOCKER_EXEC $container $user_cmd -c "ssh -o StrictHostKeyChecking=no $@"
+}
+
 # When a cmd is specified execute it.
 #
 # Special cmd handling:
@@ -45,6 +56,11 @@ user_cmd="su -l $USER_NAME -w TERM"
 if [ $# -gt 1 ]; then
 	wkspace_dir="$HOST_WORKSPACE_BASE_DIR/$container"
 	shift
+
+	wkspace_dc_dir="$wkspace_dir/.dc"
+	mkdir -p "$wkspace_dc_dir"
+
+	acs_init "$wkspace_dc_dir"
 
 	cmd="$1"
 	case "$cmd" in
@@ -66,11 +82,18 @@ if [ $# -gt 1 ]; then
 	;;
 	ssh)
 		shift
-		# XXX: By default disable strict host key verification.
-		#      Developer containers are intended to non-production workflow.
-		ssh_opts="-o StrictHostKeyChecking=no"
-		ssh_cmd="$cmd $ssh_opts $@"
-		$DOCKER_EXEC $container $user_cmd -c "$ssh_cmd"
+		dc_exec_ssh "$@"
+	;;
+	ssh-acs)
+		shift
+
+		id="${1:-}"
+		[ -z "$id" ] && echo "Usage: $0 ssh-acs <id>" && exit 1
+
+		ip="$(acs_ip_get $id)"
+		user="$(acs_ssh_user $id)"
+
+		dc_exec_ssh "$user@$ip"
 	;;
 	*)
 		$DOCKER_EXEC $container $@
