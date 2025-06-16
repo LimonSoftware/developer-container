@@ -30,6 +30,12 @@ acs_ip_get_ls() {
 	echo -ne "$ipv4"
 }
 
+acs_log_ls() {
+	local id="$1"
+
+	echo "$(dc_exec_ssh "$DC_ACS_LS_SERVER_USER@$DC_ACS_LS_SERVER_HOST -- --cmd log --id $id")"
+}
+
 acs_ssh_user_ls() {
 	local id="$1"
 

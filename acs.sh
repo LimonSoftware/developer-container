@@ -41,6 +41,11 @@ acs_ip_get() {
 	echo "$(acs_ip_get_$DC_ACS_TYPE $id)"
 }
 
+acs_log() {
+	local id="$1"
+	echo "$(acs_log_$DC_ACS_TYPE $id)"
+}
+
 acs_ssh_user() {
 	local id="$1"
 

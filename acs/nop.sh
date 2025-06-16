@@ -8,6 +8,11 @@ acs_ip_get_nop() {
 	echo "127.0.0.1"
 }
 
+acs_log_nop() {
+	local id="$1"
+	echo "nop"
+}
+
 acs_ssh_user_nop() {
 	local id="$1"
 
