@@ -65,11 +65,24 @@ if [ $# -gt 1 ]; then
 
 	cmd="$1"
 	case "$cmd" in
-	acs-ssh|acs-ssh-proxy)
+	acs-ping)
+		acs_id $@
+		shift
 		shift
 
-		id="${1:-}"
-		[ -z "$id" ] && echo "Usage: $0 acs-ssh <id>" && exit 1
+
+		ip="$(acs_ip_get $ACS_ID)"
+		if [ -z "$ip" ]; then
+			echo "ERROR: Cannot get IP of ID ($ACS_ID)"
+			exit 1
+		fi
+		ping_cmd="ping -c 4 -W 5 $ip"
+
+		$DOCKER_EXEC $container $user_cmd -c "$ping_cmd"
+	;;
+	acs-ssh|acs-ssh-proxy)
+		acs_id $@
+		shift
 		shift
 
 		opts=""
@@ -77,12 +90,12 @@ if [ $# -gt 1 ]; then
 			opts="-L *:9999:127.0.0.1:8888"
 		fi
 
-		ip="$(acs_ip_get $id)"
+		ip="$(acs_ip_get $ACS_ID)"
 		if [ -z "$ip" ]; then
-			echo "ERROR: Cannot get IP of ID ($id)"
+			echo "ERROR: Cannot get IP of ID ($ACS_ID)"
 			exit 1
 		fi
-		user="$(acs_ssh_user $id)"
+		user="$(acs_ssh_user $ACS_ID)"
 
 		dc_exec_ssh "$opts $user@$ip $@"
 	;;

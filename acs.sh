@@ -13,6 +13,14 @@
 
 DC_ACS_TYPE="${DC_ACS_TYPE:-nop}"
 
+acs_id() {
+	local exec_cmd="$0"
+	local acs_cmd="$1"
+
+	export ACS_ID="${2:-}"
+	[ -z "$ACS_ID" ] && echo "Usage: $exec_cmd $acs_cmd <id>" && exit 1
+}
+
 acs_init() {
 	local wkspace="$1"
 
