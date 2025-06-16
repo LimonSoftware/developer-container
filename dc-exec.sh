@@ -65,6 +65,27 @@ if [ $# -gt 1 ]; then
 
 	cmd="$1"
 	case "$cmd" in
+	acs-ssh|acs-ssh-proxy)
+		shift
+
+		id="${1:-}"
+		[ -z "$id" ] && echo "Usage: $0 acs-ssh <id>" && exit 1
+		shift
+
+		opts=""
+		if [ "$cmd" == "acs-ssh-proxy" ]; then
+			opts="-L *:9999:127.0.0.1:8888"
+		fi
+
+		ip="$(acs_ip_get $id)"
+		if [ -z "$ip" ]; then
+			echo "ERROR: Cannot get IP of ID ($id)"
+			exit 1
+		fi
+		user="$(acs_ssh_user $id)"
+
+		dc_exec_ssh "$opts $user@$ip $@"
+	;;
 	brave-browser|brave-browse-proxy|chromium|chromium-proxy)
 		container_ip="$(container_get_ip $container)"
 		proxy_server="$container_ip:8888"
@@ -92,27 +113,6 @@ if [ $# -gt 1 ]; then
 	ssh)
 		shift
 		dc_exec_ssh "$@"
-	;;
-	ssh-acs|ssh-acs-proxy)
-		shift
-
-		id="${1:-}"
-		[ -z "$id" ] && echo "Usage: $0 ssh-acs <id>" && exit 1
-		shift
-
-		opts=""
-		if [ "$cmd" == "ssh-acs-proxy" ]; then
-			opts="-L *:9999:127.0.0.1:8888"
-		fi
-
-		ip="$(acs_ip_get $id)"
-		if [ -z "$ip" ]; then
-			echo "ERROR: Cannot get IP of ID ($id)"
-			exit 1
-		fi
-		user="$(acs_ssh_user $id)"
-
-		dc_exec_ssh "$opts $user@$ip $@"
 	;;
 	*)
 		$DOCKER_EXEC $container $@
