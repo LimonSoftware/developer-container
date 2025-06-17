@@ -67,13 +67,6 @@ if [ $# -gt 1 ]; then
 	case "$cmd" in
 	acs-log)
 		acs_id $@
-
-		ip="$(acs_ip_get $ACS_ID)"
-		if [ -z "$ip" ]; then
-			echo "ERROR: Cannot get IP of ID ($ACS_ID)"
-			exit 1
-		fi
-
 		acs_log $ACS_ID
 	;;
 	acs-ping)
