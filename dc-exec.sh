@@ -102,6 +102,14 @@ if [ $# -gt 1 ]; then
 
 		dc_exec_ssh "$opts $user@$ip $@"
 	;;
+	acs-state)
+		acs_id $@
+		shift
+		shift
+		state="${1:-}"
+
+		acs_state $ACS_ID $state
+	;;
 	brave-browser|brave-browse-proxy|chromium|chromium-proxy)
 		container_ip="$(container_get_ip $container)"
 		proxy_server="$container_ip:8888"

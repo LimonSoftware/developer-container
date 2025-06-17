@@ -18,3 +18,10 @@ acs_ssh_user_nop() {
 
 	echo "$USER"
 }
+
+acs_state_nop() {
+	local id="$1"
+	local state="${2:-}"
+
+	echo "$state"
+}

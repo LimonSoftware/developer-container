@@ -41,3 +41,14 @@ acs_ssh_user_ls() {
 
 	echo "$DC_ACS_LS_SSH_USER"
 }
+
+acs_state_ls() {
+	local id="$1"
+	local state="${2:-}"
+
+	if [ -n "$state" ]; then
+		dc_exec_ssh "$DC_ACS_LS_SERVER_USER@$DC_ACS_LS_SERVER_HOST -- --cmd setstate --id $id --state $state"
+	else
+		dc_exec_ssh "$DC_ACS_LS_SERVER_USER@$DC_ACS_LS_SERVER_HOST -- --cmd list --id $id"
+	fi
+}

@@ -51,3 +51,9 @@ acs_ssh_user() {
 
 	echo "$(acs_ssh_user_$DC_ACS_TYPE $id)"
 }
+
+acs_state() {
+	local id="$1"
+	local state="${2:-}"
+	echo "$(acs_state_$DC_ACS_TYPE $id $state)"
+}
