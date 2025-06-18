@@ -3,6 +3,8 @@
 # Setup script for run services
 #
 
+set -eou pipefail
+
 source env-common.sh
 
 # Setup services run
