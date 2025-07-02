@@ -27,6 +27,8 @@ DOCKER_OS_DEVEL_PKGS=" \
 	git-crypt \
 	git-lfs \
 	htop \
+	iputils-arping \
+	iputils-ping \
 	iproute2 \
 	less \
 	net-tools \
