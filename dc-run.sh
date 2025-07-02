@@ -70,6 +70,12 @@ if [ $DEVEL_CONTAINER_USER_CONTEXT -eq 1 ]; then
 		-v $HOME:$HOME \
 	"
 
+	# Support of GCR on Gnome
+	GCR_SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
+	if [ -S "$GCR_SSH_AUTH_SOCK" ]; then
+		SSH_AUTH_SOCK="$GCR_SSH_AUTH_SOCK"
+	fi
+
 	# Add SSH Auth if variable is set
 	if [ "${SSH_AUTH_SOCK:-}" ]; then
 		DOCKER_RUN_ARGS_ENV="$DOCKER_RUN_ARGS_ENV \
