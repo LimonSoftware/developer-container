@@ -65,6 +65,10 @@ if [ $# -gt 1 ]; then
 
 	cmd="$1"
 	case "$cmd" in
+	acs-ip)
+		acs_ip $@
+		echo -ne "$ACS_IP"
+	;;
 	acs-log)
 		acs_id $@
 		acs_log $ACS_ID
