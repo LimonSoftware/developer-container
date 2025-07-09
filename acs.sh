@@ -17,8 +17,19 @@ acs_id() {
 	local exec_cmd="$0"
 	local acs_cmd="$1"
 
-	export ACS_ID="${2:-}"
+	ACS_ID="${2:-}"
 	[ -z "$ACS_ID" ] && echo "Usage: $exec_cmd $acs_cmd <id>" && exit 1
+	export ACS_ID
+}
+
+acs_ip() {
+	acs_id $@
+	ACS_IP="$(acs_ip_get $ACS_ID)"
+	if [ -z "$ACS_IP" ]; then
+		echo "ERROR: Cannot get IP of ID ($ACS_ID)"
+		exit 1
+	fi
+	export ACS_IP
 }
 
 acs_init() {
