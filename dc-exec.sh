@@ -95,7 +95,7 @@ if [ $# -gt 1 ]; then
 
 		acs_state $ACS_ID $state
 	;;
-	brave-browser|brave-browse-proxy|chromium|chromium-proxy)
+	brave-browser|brave-browser-proxy|chromium|chromium-proxy)
 		container_ip="$(container_get_ip $container)"
 		proxy_server="$container_ip:8888"
 		user_data="$wkspace_dir/.config/$cmd"
