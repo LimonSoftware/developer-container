@@ -17,7 +17,8 @@ DOCKER_OS_DEVEL_PKGS=" \
 	gcc \
 	git \
 	iputils-ping \
-	libacl1 liblz4-tool \
+	libacl1 \
+	liblz4-1 \
 	locales \
 	python3 \
 	python3-git \
