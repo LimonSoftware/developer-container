@@ -13,7 +13,7 @@ container_get_ip() {
 	container="$1"
 	iface="${2:-eth0}"
 
-	ipv4="$(docker exec -it $container \
+	ipv4="$(docker exec -i $container \
 		ip addr show dev $iface | \
 		grep 'inet ' | \
 		awk '{ print $2 }' | \
