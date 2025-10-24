@@ -39,11 +39,20 @@ user_cmd="su -l $USER_NAME -w TERM --pty"
 [ "${SSH_AUTH_SOCK:-}" ] && user_cmd="$user_cmd -w SSH_AUTH_SOCK"
 
 # SSH execution via the container
-dc_exec_ssh() {
+_dc_exec_ssh() {
 	# XXX: By default disable strict host key verification.
 	#      Developer containers are intended to non-production workflow.
+	ssh_cmd="$1" && shift
 	ssh_args="$@"
-	$DOCKER_EXEC $container $user_cmd -c "ssh -o StrictHostKeyChecking=no $ssh_args"
+	$DOCKER_EXEC $container $user_cmd -c "$ssh_cmd -o StrictHostKeyChecking=no $ssh_args"
+}
+
+dc_exec_scp() {
+	_dc_exec_ssh "scp -C" "$@"
+}
+
+dc_exec_ssh() {
+	_dc_exec_ssh "ssh" "$@"
 }
 
 # When a cmd is specified execute it.
@@ -78,16 +87,19 @@ if [ $# -gt 1 ]; then
 		ping_cmd="ping -c 4 -W 5 $ACS_IP"
 		$DOCKER_EXEC $container $user_cmd -c "$ping_cmd"
 	;;
-	acs-ssh|acs-ssh-proxy)
+	acs-scp|acs-ssh|acs-ssh-proxy)
 		acs_ip $@ && shift && shift
 
-		opts=""
-		if [ "$cmd" == "acs-ssh-proxy" ]; then
-			opts="-L *:9999:127.0.0.1:8888"
-		fi
 		user="$(acs_ssh_user $ACS_ID)"
-
-		dc_exec_ssh "$opts $user@$ACS_IP $@"
+		if [ "$cmd" = "acs-scp" ]; then
+			dc_exec_scp $user@$ACS_IP:$1 $2
+		else
+			opts=""
+			if [ "$cmd" == "acs-ssh-proxy" ]; then
+				opts="-L *:9999:127.0.0.1:8888"
+			fi
+			dc_exec_ssh "$opts $user@$ACS_IP $@"
+		fi
 	;;
 	acs-state)
 		acs_id $@ && shift && shift
