@@ -54,6 +54,7 @@ if [ $DEVEL_CONTAINER_PRIVILEGED -eq 1 ]; then
 	DOCKER_RUN_ARGS=" \
 		$DOCKER_RUN_ARGS \
 		--privileged \
+		--net=host \
 	"
 	DOCKER_RUN_ARGS_MAP=" \
 		$DOCKER_RUN_ARGS_MAP \
