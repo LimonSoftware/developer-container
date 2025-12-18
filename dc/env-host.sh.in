@@ -64,7 +64,7 @@ USER_NAME="devel"
 USER_GROUP="$USER_NAME"
 USER_UID="__USER_UID__"
 USER_GID="__USER_GID__"
-USER_GROUPS="docker,sudo,users"
+USER_GROUPS="docker,sudo,users,plugdev"
 USER_SHELL="/bin/bash"
 
 # Flavour support
