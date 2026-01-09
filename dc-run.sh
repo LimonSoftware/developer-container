@@ -112,7 +112,7 @@ source env-run.sh
 # If container exists rename to old prefix
 # and inform the user.
 if [ "$(docker ps -a -q -f name=$CONTAINER_NAME)" ]; then
-	container_rename="devel-old-review"
+	container_rename="backup_"$CONTAINER_NAME"_$(date +%s)"
 
 	echo "Warning: Container $CONTAINER_NAME already exists"
 	echo "Renaming $CONTAINER_NAME to $container_rename"
