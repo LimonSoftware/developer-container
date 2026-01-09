@@ -40,6 +40,7 @@ DOCKER_OS_DEVEL_PKGS=" \
 "
 DOCKER_OS_TOOLS_PKGS=" \
 	docker.io \
+	ssh \
 	tinyproxy \
 "
 
