@@ -19,7 +19,6 @@ DOCKER_OS_DEVEL_PKGS=" \
 	iputils-ping \
 	libacl1 \
 	liblz4-1 \
-	locales \
 	python3 \
 	python3-git \
 	python3-jinja2 \
@@ -33,8 +32,3 @@ DOCKER_OS_DEVEL_PKGS=" \
 	zstd \
 "
 
-DOCKER_OS_TOOLS_CMD="$DOCKER_OS_TOOLS_CMD && \
-	sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen && \
-	echo 'LANG=en_US.UTF-8' > /etc/default/locale && \
-	locale-gen en_US.UTF-8
-"

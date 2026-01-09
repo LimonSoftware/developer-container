@@ -31,6 +31,7 @@ DOCKER_OS_DEVEL_PKGS=" \
 	iputils-ping \
 	iproute2 \
 	less \
+	locales \
 	net-tools \
 	procps \
 	strace \
@@ -45,7 +46,10 @@ DOCKER_OS_TOOLS_PKGS=" \
 "
 
 DOCKER_OS_TOOLS_CMD=" \
-	curl -fsSL https://tailscale.com/install.sh | sh \
+	curl -fsSL https://tailscale.com/install.sh | sh && \
+	sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen && \
+	echo 'LANG=en_US.UTF-8' > /etc/default/locale && \
+	locale-gen en_US.UTF-8 \
 "
 # Flavour support
 env_host_load_flavour build
