@@ -10,6 +10,7 @@
 # Environment:
 #
 # 	DEVEL_CONTAINER_AUTOSTART: Auto start after OS, default 1 (optional).
+# 	DEVEL_CONTAINER_DEVICES: Map a list of devices if specified, default empty (optional).
 # 	DEVEL_CONTAINER_PRIVILEGED: Allow access to the host resources from container, default 0 (optional).
 # 	DEVEL_CONTAINER_USER_CONTEXT: Enable current user context, details below, default 1 (optional).
 #
@@ -19,6 +20,7 @@
 DC_DIR="$(dirname "$(readlink -f "$0")")/dc" && cd "$DC_DIR"
 
 DEVEL_CONTAINER_AUTOSTART=${DEVEL_CONTAINER_AUTOSTART:-1}
+DEVEL_CONTAINER_DEVICES="${DEVEL_CONTAINER_DEVICES:-}"
 DEVEL_CONTAINER_PRIVILEGED=${DEVEL_CONTAINER_PRIVILEGED:-0}
 DEVEL_CONTAINER_USER_CONTEXT=${DEVEL_CONTAINER_USER_CONTEXT:-1}
 
@@ -61,6 +63,13 @@ if [ $DEVEL_CONTAINER_PRIVILEGED -eq 1 ]; then
 	"
 
 	HOST_CONTAINER_NOT_PRIVILEGED=0
+elif [ -n "$DEVEL_CONTAINER_DEVICES" ]; then
+	for device in $DEVEL_CONTAINER_DEVICES; do
+		DOCKER_RUN_ARGS_MAP=" \
+			$DOCKER_RUN_ARGS_MAP \
+			--device=/dev/$device \
+		"
+	done
 fi
 
 # Allow access to host user HOME and SSH_AUTH
