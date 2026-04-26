@@ -45,6 +45,7 @@ DOCKER_RUN_ARGS=" \
 	--name $CONTAINER_NAME \
 	--hostname localhost \
 	-d \
+	${DOCKER_RUN_EXTRA_ARGS:-} \
 "
 DOCKER_RUN_ARGS_ENV=""
 DOCKER_RUN_ARGS_MAP=""
