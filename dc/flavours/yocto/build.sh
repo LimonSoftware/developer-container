@@ -16,6 +16,7 @@ DOCKER_OS_DEVEL_PKGS=" \
 	gawk \
 	gcc \
 	git \
+	jq \
 	iputils-ping \
 	libacl1 \
 	liblz4-1 \
