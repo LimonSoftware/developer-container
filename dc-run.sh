@@ -110,15 +110,13 @@ if [ $DEVEL_CONTAINER_USER_CONTEXT -eq 1 ]; then
 	# Add X11 forwarding if set
 	if [ "${DISPLAY:-}" ]; then
 		X11_AUTH="$HOME/.Xauthority"
-		display_no="$(echo $DISPLAY | sed 's/://')"
-		X11_SOCK="/tmp/.X11-unix/X$display_no"
+		X11_SOCK="/tmp/.X11-unix"
 
 		DOCKER_RUN_ARGS_ENV="$DOCKER_RUN_ARGS_ENV \
 			-e DISPLAY=$DISPLAY \
 		"
 		DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
 			-v $X11_AUTH:$WORKSPACE_DIR/.Xauthority \
-			-v $X11_SOCK:$X11_SOCK \
 		"
 	fi
 fi
