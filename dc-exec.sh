@@ -31,7 +31,13 @@ fi
 source env-host.sh
 
 # Docker exec base command
-DOCKER_EXEC="docker exec -e TERM -e CONTAINER_NAME=$container -it"
+DOCKER_EXEC="docker exec \
+	-e CONTAINER_NAME=$container \
+	-e DISPLAY \
+	-e SSH_AUTH_SOCK \
+	-e TERM \
+	-it \
+"
 
 # When no cmd is specified execute shell via login (su -l) and
 # add SSH_AUTH_SOCK if set.

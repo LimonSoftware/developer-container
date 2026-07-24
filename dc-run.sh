@@ -84,41 +84,26 @@ else
 	fi
 fi
 
-# Allow access to host user HOME and SSH_AUTH
+# Allow access to host user HOME and XDG_RUNTIME_DIR
 if [ $DEVEL_CONTAINER_USER_CONTEXT -eq 1 ]; then
 	DOCKER_RUN_ARGS_MAP=" \
 		$DOCKER_RUN_ARGS_MAP \
 		-v $HOME:$HOME \
 	"
 
-	# Support of GCR on Gnome
-	GCR_SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
-	if [ -S "$GCR_SSH_AUTH_SOCK" ]; then
-		SSH_AUTH_SOCK="$GCR_SSH_AUTH_SOCK"
-	fi
-
-	# Add SSH Auth if variable is set
-	if [ "${SSH_AUTH_SOCK:-}" ]; then
-		DOCKER_RUN_ARGS_ENV="$DOCKER_RUN_ARGS_ENV \
-			-e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
-		"
-		DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
-			-v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
-		"
-	fi
+	# Map the XDG_RUNTIME_DIR
+	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
+		-v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR \
+	"
 
 	# Add X11 forwarding if set
-	if [ "${DISPLAY:-}" ]; then
-		X11_AUTH="$HOME/.Xauthority"
-		X11_SOCK="/tmp/.X11-unix"
+	X11_AUTH="$HOME/.Xauthority"
+	X11_SOCK="/tmp/.X11-unix"
 
-		DOCKER_RUN_ARGS_ENV="$DOCKER_RUN_ARGS_ENV \
-			-e DISPLAY=$DISPLAY \
-		"
-		DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
-			-v $X11_AUTH:$WORKSPACE_DIR/.Xauthority \
-		"
-	fi
+	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
+		-v $X11_AUTH:$WORKSPACE_DIR/.Xauthority \
+		-v $X11_SOCK:$X11_SOCK \
+	"
 fi
 
 export HOST_CONTAINER_NOT_PRIVILEGED
