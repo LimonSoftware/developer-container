@@ -84,28 +84,6 @@ else
 	fi
 fi
 
-# Allow access to host user HOME and XDG_RUNTIME_DIR
-if [ $DEVEL_CONTAINER_USER_CONTEXT -eq 1 ]; then
-	DOCKER_RUN_ARGS_MAP=" \
-		$DOCKER_RUN_ARGS_MAP \
-		-v $HOME:$HOME:ro \
-	"
-
-	# Map the XDG_RUNTIME_DIR
-	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
-		-v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:ro \
-	"
-
-	# Add X11 forwarding if set
-	X11_AUTH="$HOME/.Xauthority"
-	X11_SOCK="/tmp/.X11-unix"
-
-	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
-		-v $X11_AUTH:$WORKSPACE_DIR/.Xauthority:ro \
-		-v $X11_SOCK:$X11_SOCK \
-	"
-fi
-
 export HOST_CONTAINER_NOT_PRIVILEGED
 export DOCKER_RUN_ARGS
 export DOCKER_RUN_ARGS_ENV

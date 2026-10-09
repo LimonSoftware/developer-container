@@ -41,7 +41,27 @@ DOCKER_RUN_ARGS_MAP=" \
 	-v $HOST_WORKSPACE_DIR:$HOST_WORKSPACE_DIR \
 "
 
+# Allow access to host user HOME and XDG_RUNTIME_DIR
 if [ $HOST_CONTAINER_USER_CONTEXT -eq 1 ]; then
+	DOCKER_RUN_ARGS_MAP=" \
+		$DOCKER_RUN_ARGS_MAP \
+		-v $HOME:$HOME:ro \
+	"
+
+	# Map the XDG_RUNTIME_DIR
+	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
+		-v $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:ro \
+	"
+
+	# Add X11 forwarding if set
+	X11_AUTH="$HOME/.Xauthority"
+	X11_SOCK="/tmp/.X11-unix"
+
+	DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
+		-v $X11_AUTH:$HOST_WORKSPACE_DIR/.Xauthority:ro \
+		-v $X11_SOCK:$X11_SOCK \
+	"
+
 	if groups | grep "docker" > /dev/null; then
 		DOCKER_RUN_ARGS_MAP=" \
 			$DOCKER_RUN_ARGS_MAP \
