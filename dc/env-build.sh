@@ -13,7 +13,6 @@ set -eou pipefail
 source env-common.sh
 
 # Build
-
 export DEBIAN_FRONTEND=noninteractive
 
 ## Docker OS image customizations
@@ -31,6 +30,7 @@ DOCKER_OS_DEVEL_PKGS=" \
 	iputils-ping \
 	iproute2 \
 	less \
+	lsb-release \
 	locales \
 	net-tools \
 	procps \
@@ -47,6 +47,7 @@ DOCKER_OS_TOOLS_PKGS=" \
 
 DOCKER_OS_TOOLS_CMD=" \
 	curl -fsSL https://tailscale.com/install.sh | sh && \
+	curl -fsSL https://opencode.ai/v2/install | bash && mv /root/.opencode/bin/opencode* /usr/bin && \
 	sed -i 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/g' /etc/locale.gen && \
 	echo 'LANG=en_US.UTF-8' > /etc/default/locale && \
 	locale-gen en_US.UTF-8 \

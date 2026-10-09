@@ -41,11 +41,20 @@ DOCKER_RUN_ARGS_MAP=" \
 	-v $HOST_WORKSPACE_DIR:$HOST_WORKSPACE_DIR \
 "
 
-if [ $HOST_CONTAINER_USER_CONTEXT -eq 1 ] && groups | grep "docker" > /dev/null; then
-	DOCKER_RUN_ARGS_MAP=" \
-		$DOCKER_RUN_ARGS_MAP \
-		-v $DOCKER_SOCK:$DOCKER_SOCK \
-	"
+if [ $HOST_CONTAINER_USER_CONTEXT -eq 1 ]; then
+	if groups | grep "docker" > /dev/null; then
+		DOCKER_RUN_ARGS_MAP=" \
+			$DOCKER_RUN_ARGS_MAP \
+			-v $DOCKER_SOCK:$DOCKER_SOCK \
+		"
+	fi
+
+	# Add opencode map if found
+	if [ -d "$HOME/.config/opencode" ]; then
+		DOCKER_RUN_ARGS_MAP="$DOCKER_RUN_ARGS_MAP \
+			-v $HOME/.config/opencode:$HOST_WORKSPACE_DIR/.config/opencode:ro \
+		"
+	fi
 fi
 
 if [ "${HOST_STORAGE_DIR}" ]; then
