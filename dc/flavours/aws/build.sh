@@ -2,4 +2,5 @@ DOCKER_OS_DEVEL_PKGS=" \
 	$DOCKER_OS_DEVEL_PKGS \
 	awscli
 	jq \
+	mosquitto-clients \
 "
